@@ -2,13 +2,22 @@
 pragma solidity >=0.5.0 <0.9.0;
 
 interface ERC20 {
+//totalsupply- it returns the initial quantity of tokens
 function totalSupply() external view returns (uint256);
+//balanceOf - it returns the number of token hold by any particular address
 function balanceOf(address tokenOwner) external view returns (uint);
+//allowance - it is to know the number of remaining approved tokens.
 function allowance(address tokenOwner, address spender) external view returns (uint);
+//transfer - it is to transfer the token from one account to other
 function transfer(address to, uint tokens) external returns (bool);
+//approve - owner approves a spender to use its own token
 function approve(address spender, uint tokens)  external returns (bool);
+//transferFrom - once approved, it is used to transfer all or partial approved token
 function transferFrom(address from, address to, uint tokens) external returns (bool);
+//approval event- it is used inside approved function to log the activity of approved function
 event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+//transfer event - it is used to log the transfer function activity like from account to account
+//and how mych token was transfered
 event Transfer(address indexed from, address indexed to, uint tokens);
 }
 
@@ -17,12 +26,15 @@ contract myErc20Token is ERC20 {
 
     mapping(address => mapping(address => uint)) _allowed;
 
-    string public name = "Vishnu20";
-    string public symbol = "VS";
+    //name, tokenSymbol, decimal
+    string public name = "MemeToken";
+    string public symbol = "MMT";
     uint public decimal = 0;
 
+    //initial supply
     uint public _totalsupply;
 
+    //creator address
     address public _creator;
 
     constructor(){
